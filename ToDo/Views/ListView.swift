@@ -18,7 +18,13 @@ struct ListView: View {
             ForEach(items, id: \.self) { item in
                 ListRowView(title: item)
             }
-        }.navigationTitle("ToDo List 📋")
+        }
+        .listStyle(PlainListStyle())
+        .navigationTitle("ToDo List 📋")
+        .navigationBarItems(
+            leading: EditButton(),
+            trailing: NavigationLink("Add", destination: AddView())
+        )
     }
 }
 
