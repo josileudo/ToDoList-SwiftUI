@@ -14,8 +14,14 @@ struct ListView: View {
         List {
             ForEach(listViewModel.items) { item in
                 ListRowView(item: item)
-            }.onDelete(perform: listViewModel.deleteItem)
-                .onMove(perform: listViewModel.moveItem)
+                    .onTapGesture {
+                        withAnimation(.linear) {
+                            listViewModel.updateItem(item: item)
+                        }
+                    }
+            }
+            .onDelete(perform: listViewModel.deleteItem)
+            .onMove(perform: listViewModel.moveItem)
         }
         .listStyle(PlainListStyle())
         .navigationTitle("ToDo List 📋")
