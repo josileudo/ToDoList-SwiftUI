@@ -10,7 +10,10 @@ import SwiftUI
 struct AddView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var listViewModel: ListViewModel
+    
     @State var textFieldValue: String = ""
+    @State var alertTitle: String = ""
+    @State var alertShow: Bool = false
     
     var fieldColor: UIColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
     var buttonBackgroundColor: UIColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
@@ -37,11 +40,28 @@ struct AddView: View {
             .padding(14)
         }
         .navigationTitle("Add an Title ✒️")
+        .alert(isPresented: $alertShow, content: getAlert)
     }
     
     func saveButtonPressed() {
-        listViewModel.addItem(title: textFieldValue)
-        presentationMode.wrappedValue.dismiss()
+        if textIsApropriate() {
+            listViewModel.addItem(title: textFieldValue)
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func textIsApropriate() -> Bool {
+        if textFieldValue.count < 3 {
+            alertTitle = "Your task need of more \(3 - textFieldValue.count) characters."
+            alertShow.toggle()
+            return false
+        }
+            
+        return true
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(title: Text(alertTitle))
     }
 }
 
