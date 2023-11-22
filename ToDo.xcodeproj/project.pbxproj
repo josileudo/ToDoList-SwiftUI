@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0ACD3F2B0B99A50099D20B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0ACD3E2B0B99A50099D20B /* ListViewModel.swift */; };
 		2F0B13D42AF5147E0085ADF2 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B13D32AF5147E0085ADF2 /* ListView.swift */; };
 		2F0B13D62AF51A8F0085ADF2 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B13D52AF51A8F0085ADF2 /* ListRowView.swift */; };
 		2F0B13D82AF522C60085ADF2 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B13D72AF522C60085ADF2 /* AddView.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F0ACD3E2B0B99A50099D20B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		2F0B13D32AF5147E0085ADF2 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		2F0B13D52AF51A8F0085ADF2 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		2F0B13D72AF522C60085ADF2 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
@@ -38,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F0ACD3D2B0B99710099D20B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2F0ACD3E2B0B99A50099D20B /* ListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		2F0B13D22AF514390085ADF2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +87,7 @@
 			children = (
 				2F1B1FDC2AF2A435004A55E5 /* ToDoApp.swift */,
 				2F191F542AFC01A7003C4D7D /* Models */,
+				2F0ACD3D2B0B99710099D20B /* ViewModels */,
 				2F0B13D22AF514390085ADF2 /* Views */,
 				2F1B1FE02AF2A437004A55E5 /* Assets.xcassets */,
 				2F1B1FE22AF2A437004A55E5 /* Preview Content */,
@@ -164,6 +175,7 @@
 			files = (
 				2F191F562AFC01DB003C4D7D /* ItemModel.swift in Sources */,
 				2F0B13D82AF522C60085ADF2 /* AddView.swift in Sources */,
+				2F0ACD3F2B0B99A50099D20B /* ListViewModel.swift in Sources */,
 				2F1B1FDD2AF2A435004A55E5 /* ToDoApp.swift in Sources */,
 				2F0B13D42AF5147E0085ADF2 /* ListView.swift in Sources */,
 				2F0B13D62AF51A8F0085ADF2 /* ListRowView.swift in Sources */,
