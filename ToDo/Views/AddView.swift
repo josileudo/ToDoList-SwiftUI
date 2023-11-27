@@ -16,7 +16,6 @@ struct AddView: View {
     @State var alertShow: Bool = false
     
     var fieldColor: UIColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-    var buttonBackgroundColor: UIColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     
     var body: some View {
         ScrollView {
@@ -33,7 +32,7 @@ struct AddView: View {
                         .font(.headline)
                         .frame(height: 40)
                         .frame(maxWidth: 100)
-                        .background(Color(buttonBackgroundColor))
+                        .background(Color.accentColor)
                         .cornerRadius(16)
                 })
             }
