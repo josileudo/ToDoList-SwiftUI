@@ -15,7 +15,9 @@ struct ToDoApp: App {
         WindowGroup {
             NavigationView() {
                 ListView()
-            }.environmentObject(listViewModel)
+            }
+            .navigationViewStyle(StackNavigationViewStyle()) // for use on ipad
+            .environmentObject(listViewModel)
         }
     }
 }

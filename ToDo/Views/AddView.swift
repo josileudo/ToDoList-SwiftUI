@@ -23,12 +23,12 @@ struct AddView: View {
                 TextField("Anything task here", text: $textFieldValue)
                     .padding(.horizontal)
                     .frame(height: 55)
-                    .background(Color(fieldColor))
-                    .cornerRadius(16)
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .cornerRadius(8)
                 
                 Button(action: saveButtonPressed, label: {
                     Text("Save".uppercased())
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color(.white))
                         .font(.headline)
                         .frame(height: 40)
                         .frame(maxWidth: 100)
@@ -66,8 +66,19 @@ struct AddView: View {
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            AddView()
-        }.environmentObject(ListViewModel())
+        Group {
+            NavigationView {
+                AddView()
+            }
+            .environmentObject(ListViewModel())
+            .preferredColorScheme(.light)
+            
+            NavigationView {
+                AddView()
+            }
+            .environmentObject(ListViewModel())
+            .preferredColorScheme(.dark)
+        }
+        
     }
 }
