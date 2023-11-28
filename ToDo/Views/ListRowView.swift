@@ -14,6 +14,8 @@ struct ListRowView: View {
             Image(systemName: item.isCompleted ? "checkmark.circle" : "circle")
                 .foregroundColor(item.isCompleted ? .green : .red)
             Text(item.title)
+                .strikethrough(item.isCompleted)
+                .foregroundColor(item.isCompleted ? Color.gray : Color.primary)
             Spacer()
         }
         .font(.title2)
