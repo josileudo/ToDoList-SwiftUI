@@ -62,4 +62,10 @@ class ListViewModel: ObservableObject {
             UserDefaults.standard.set(encodedData, forKey: itemsListKey)
         }
     }
+    
+    func quantityToDo(type: ItemsListTypes) -> Int {
+        return items.filter({task in {
+            type.rawValue == "completed" ? task.isCompleted : !task.isCompleted
+        }()}).count
+    }
 }
