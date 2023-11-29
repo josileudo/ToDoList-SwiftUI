@@ -18,7 +18,7 @@ struct ListRowView: View {
                 .foregroundColor(item.isCompleted ? Color.gray : Color.primary)
             Spacer()
         }
-        .font(.title2)
+        .font(.title3)
         .padding(.vertical, 8)
     }
 }

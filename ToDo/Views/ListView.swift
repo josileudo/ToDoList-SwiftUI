@@ -17,21 +17,54 @@ struct ListView: View {
                     .transition(AnyTransition.opacity.animation(.easeIn))
             } else {
                 List {
-                    ForEach(listViewModel.items) { item in
-                        ListRowView(item: item)
+                    Section {
+                        ForEach(listViewModel.items) { item in
+                            if(!item.isCompleted) {
+                            ListRowView(item: item)
                             .onTapGesture {
                                 withAnimation(.linear) {
                                     listViewModel.updateItem(item: item)
+                                    }
                                 }
                             }
+                        }
+                        .onDelete(perform: listViewModel.deleteItem)
+                        .onMove(perform: listViewModel.moveItem)
+                    } header: {
+                        HStack {
+                            Text("To Do")
+                            Spacer()
+                            Text("\(listViewModel.quantityToDo(type: ItemsListTypes.Todo))")
+                        }
                     }
-                    .onDelete(perform: listViewModel.deleteItem)
-                    .onMove(perform: listViewModel.moveItem)
+                    
+                    Section {
+                        ForEach(listViewModel.items) { item in
+                            if(item.isCompleted) {
+                            ListRowView(item: item)
+                            .onTapGesture {
+                                withAnimation(.linear) {
+                                    listViewModel.updateItem(item: item)
+                                    }
+                                }
+                            }
+                        }
+                        .onDelete(perform: listViewModel.deleteItem)
+                        .onMove(perform: listViewModel.moveItem)
+                    } header: {
+                        HStack {
+                            Text("Completed")
+                            Spacer()
+                            Text("\(listViewModel.quantityToDo(type: ItemsListTypes.Completed))")
+                        }
+                    }
+                    
                 }
                 .listStyle(PlainListStyle())
             }
         }
         .navigationTitle("ToDo List 📋")
+        .navigationBarHidden(listViewModel.items.count == 0)
         .navigationBarItems(
             leading: EditButton(),
             trailing: NavigationLink("Add", destination: AddView())

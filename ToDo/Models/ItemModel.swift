@@ -22,3 +22,8 @@ struct ItemModel: Identifiable, Codable {
         return ItemModel(id: id, title: title, isCompleted: !isCompleted)
     }
 }
+
+enum ItemsListTypes: String {
+    case Todo = "todo"
+    case Completed = "completed"
+}
