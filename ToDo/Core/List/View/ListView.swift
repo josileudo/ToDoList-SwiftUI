@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         ZStack {
@@ -16,7 +17,7 @@ struct ListView: View {
                 NoItemsView()
                     .transition(AnyTransition.opacity.animation(.easeIn))
             } else {
-                List {
+                 List {
                     Section {
                         ForEach(listViewModel.items) { item in
                             if(!item.isCompleted) {
@@ -62,6 +63,13 @@ struct ListView: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            
+            Button {
+                authViewModel.signOut()
+            } label: {
+                Text("Sign Out")
+            }
+
         }
         .navigationTitle("ToDo List 📋")
         .navigationBarHidden(listViewModel.items.count == 0)
