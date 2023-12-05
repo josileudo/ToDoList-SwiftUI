@@ -61,9 +61,9 @@ struct LoginView: View {
                     .foregroundColor(Color.white)
             })
             .background(Color.accentColor)
+            .disabled(!formIsValid)
             .cornerRadius(10)
             .padding(.top, 10)
-            .disabled(!formIsValid)
             .opacity(formIsValid ? 1.0 : 0.7)
             
             Spacer()

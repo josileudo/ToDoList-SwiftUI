@@ -62,9 +62,22 @@ class AuthViewModel: ObservableObject {
         
     }
     
-    func deleteUser() {
+    func deleteUser() async throws {
+        do {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            try? await Firestore.firestore().collection("users").document(uid).delete()
+            
+            let user = Auth.auth().currentUser
+            try await user?.delete()
+            
+            print("uid \(uid)")
+            print("Document successfully updated")
+        } catch {
+            print("Error for delete user \(error.localizedDescription)")
+        }
         
     }
+    
     
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }

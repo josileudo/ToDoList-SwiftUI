@@ -20,14 +20,29 @@ struct RegisterView: View {
             Image("ToDoIcon")
                 .resizable()
                 .scaledToFill()
-                .frame(width: 150, height: 150)
+                .frame(width: 120, height: 120)
                 .padding(.vertical, 30)
             
             VStack {
                 InputView(text: $email, title: "Email", placeHolder: "Email").autocapitalization(.none)
                 InputView(text: $username, title: "Full Username", placeHolder: "Username").autocapitalization(.none)
                 InputView(text: $password, title: "Password", placeHolder: "Password", isSecureField: true)
-                InputView(text: $confirmPassword, title: "Confirm password", placeHolder: "Password",  isSecureField: true)
+                ZStack(alignment: .trailing) {
+                    InputView(text: $confirmPassword, title: "Confirm password", placeHolder: "Password",  isSecureField: true)
+                    if (!password.isEmpty && !confirmPassword.isEmpty) {
+                        if (password == confirmPassword) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .imageScale(.large)
+                                .foregroundColor(Color(.systemGreen))
+                                .fontWeight(.bold)
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .imageScale(.large)
+                                .foregroundColor(Color(.systemRed))
+                                .fontWeight(.bold)
+                        }
+                    }
+                }
             }
             .padding(.horizontal)
             

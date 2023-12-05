@@ -63,12 +63,22 @@ struct ListView: View {
                 }
                 .listStyle(PlainListStyle())
             }
-            
-            Button {
-                authViewModel.signOut()
-            } label: {
-                Text("Sign Out")
+            VStack {
+                Button {
+                    authViewModel.signOut()
+                } label: {
+                    Text("Sign Out")
+                }
+                
+                Button {
+                    Task {
+                        try await authViewModel.deleteUser()
+                    }
+                } label: {
+                    Text("Delete user")
+                }
             }
+            
 
         }
         .navigationTitle("ToDo List 📋")
