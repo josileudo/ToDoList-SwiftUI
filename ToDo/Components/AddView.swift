@@ -44,8 +44,10 @@ struct AddView: View {
     
     func saveButtonPressed() {
         if textIsApropriate() {
-            listViewModel.addItem(title: textFieldValue)
-            presentationMode.wrappedValue.dismiss()
+            Task {
+                try await listViewModel.addItem(title: textFieldValue)
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     

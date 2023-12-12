@@ -21,11 +21,10 @@ struct ToDoApp: App {
        
         WindowGroup {
             NavigationView() {
-                ContentView()                    
+                ContentView()
             }.navigationViewStyle(StackNavigationViewStyle()) // for use on ipad
                 .environmentObject(listViewModel)
                 .environmentObject(authViewModel)
-            
         }
     }
 }

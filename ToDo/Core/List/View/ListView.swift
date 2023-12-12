@@ -11,6 +11,8 @@ struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     
+    @State private var loginView: Bool = false
+    
     var body: some View {
         ZStack {
             if listViewModel.items.isEmpty {
@@ -24,13 +26,14 @@ struct ListView: View {
                             ListRowView(item: item)
                             .onTapGesture {
                                 withAnimation(.linear) {
-                                    listViewModel.updateItem(item: item)
+                                        listViewModel.updateItem(item: item)
                                     }
                                 }
                             }
                         }
-                        .onDelete(perform: listViewModel.deleteItem)
-                        .onMove(perform: listViewModel.moveItem)
+                        .onDelete { indexSet in
+                            listViewModel.deleteItem(indexSet: indexSet)
+                        }
                     } header: {
                         HStack {
                             Text("To Do")
@@ -50,8 +53,9 @@ struct ListView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: listViewModel.deleteItem)
-                        .onMove(perform: listViewModel.moveItem)
+                        .onDelete { indexSet in
+                            listViewModel.deleteItem(indexSet: indexSet)
+                        }
                     } header: {
                         HStack {
                             Text("Completed")
@@ -71,11 +75,24 @@ struct ListView: View {
                 }
                 
                 Button {
-                    Task {
-                        try await authViewModel.deleteUser()
-                    }
+                    loginView = true
                 } label: {
                     Text("Delete user")
+                }
+                .alert("Delete User", isPresented: $loginView) {
+                    Button("Cancel", role: .cancel, action: {
+                        loginView = false
+                   })
+                    Button("Delete", role: .destructive, action: {
+                        Task {
+                            do {
+                                try await authViewModel.deleteUser()
+                            } catch {
+                            }
+                        }
+                    })
+                } message: {
+                    Text("You wish delete this user?")
                 }
             }
             

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestoreSwift
 
 /*
  CRUD FUNCTIONS
@@ -16,52 +18,80 @@ import Foundation
  DELETE
  */
 
+@MainActor
 class ListViewModel: ObservableObject {
-    @Published var items: [ItemModel] = [] {
-        didSet {
-            saveItems()
-        }
-    }
+    @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: User?
+    @Published var items: [ItemModel] = []
     
     let itemsListKey: String = "items_list"
     
     init() {
-        getItems()
+        Task {
+           try await getItems()
+        }
+        
+        self.userSession = Auth.auth().currentUser
     }
     
-    func getItems() {
-        guard
-            let data = UserDefaults.standard.data(forKey: itemsListKey),
-            let savedData = try? JSONDecoder().decode([ItemModel].self, from: data)
-        else { return }
-        
-        self.items = savedData
+    func getItems() async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let collection = Firestore.firestore().collection("users").document(uid).collection(itemsListKey)
+        do {
+            try await collection.addSnapshotListener{( snapshot, error) in
+                var test: [ItemModel] = []
+                if let snapshot = snapshot {
+                    for document in snapshot.documents {
+                        let testValue = try? Firestore.Decoder().decode(ItemModel.self, from: document.data())
+                        if ((testValue) != nil) {
+                            test.append(testValue!)
+                        }
+                        print("*** test inside \(String(describing: testValue))")
+                    }
+                }
+                self.items = test
+            }
+        } catch {
+            print("Error for get items \(error.localizedDescription)")
+        }
     }
      
     func deleteItem(indexSet: IndexSet) {
-        items.remove(atOffsets: indexSet);
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let collection = Firestore.firestore().collection("users").document(uid).collection(itemsListKey)
+        do {
+            for index in indexSet {
+                try collection.document(items[index].id).delete()
+            }
+        } catch {
+            
+        }
     }
-    
-    func moveItem(from: IndexSet, to: Int) {
-        items.move(fromOffsets: from, toOffset: to)
-    }
-    
+       
     func addItem(title: String) {
         let newItem = ItemModel(title: title, isCompleted: false)
-        items.append(newItem);
+        
+        if let encodedData = try? Firestore.Encoder().encode(newItem) {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            let db = Firestore.firestore()
+            let items = db.collection("users").document(uid).collection(itemsListKey).document(newItem.id)
+            items.setData(encodedData)
+        }
     }
     
     func updateItem(item: ItemModel) {
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item.updateCompletion()
-        }
+        do {
+            if let index = items.firstIndex(where: { $0.id == item.id }) {
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                let encodedData = try Firestore.Encoder().encode(item.updateCompletion())
+                let snapshot = Firestore.firestore().collection("users").document(uid).collection(itemsListKey).document(item.id)
+                snapshot.setData(encodedData)
+            }
+       } catch {
+           print("Erro ao salvar dados no Firestore: \(error.localizedDescription)")
+       }
     }
     
-    func saveItems() {
-        if let encodedData = try? JSONEncoder().encode(items) {
-            UserDefaults.standard.set(encodedData, forKey: itemsListKey)
-        }
-    }
     
     func quantityToDo(type: ItemsListTypes) -> Int {
         return items.filter({task in {

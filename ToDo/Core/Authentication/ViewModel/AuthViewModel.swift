@@ -64,14 +64,16 @@ class AuthViewModel: ObservableObject {
     
     func deleteUser() async throws {
         do {
+            // MARK: Remove from the firestore
             guard let uid = Auth.auth().currentUser?.uid else { return }
             try? await Firestore.firestore().collection("users").document(uid).delete()
             
+            // MARK: Remove from the Authentication
             let user = Auth.auth().currentUser
             try await user?.delete()
             
-            print("uid \(uid)")
-            print("Document successfully updated")
+            // MARK: Make a signout for callback to the loginView
+            self.signOut()
         } catch {
             print("Error for delete user \(error.localizedDescription)")
         }
