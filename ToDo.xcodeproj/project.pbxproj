@@ -31,6 +31,7 @@
 		2F9697C02B1A83D800929116 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2F9697BF2B1A83D800929116 /* FirebaseStorage */; };
 		2F986C362B165DD3000B546B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F986C352B165DD3000B546B /* LaunchScreen.storyboard */; };
 		2FA8C9652B1E048700CA4581 /* AuthProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA8C9642B1E048700CA4581 /* AuthProtocol.swift */; };
+		2FF0DC2C2B2A40E500DA860B /* CustomAlertInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF0DC2B2B2A40E500DA860B /* CustomAlertInfoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		2F9697BC2B1A7F2A00929116 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F986C352B165DD3000B546B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2FA8C9642B1E048700CA4581 /* AuthProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProtocol.swift; sourceTree = "<group>"; };
+		2FF0DC2B2B2A40E500DA860B /* CustomAlertInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertInfoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				2F0B13D32AF5147E0085ADF2 /* ListView.swift */,
+				2FF0DC2B2B2A40E500DA860B /* CustomAlertInfoModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F191F562AFC01DB003C4D7D /* ItemModel.swift in Sources */,
+				2FF0DC2C2B2A40E500DA860B /* CustomAlertInfoModel.swift in Sources */,
 				2F9697A12B17E4AF00929116 /* RegisterView.swift in Sources */,
 				2F9697B52B1910FF00929116 /* ContentView.swift in Sources */,
 				2F0B13D82AF522C60085ADF2 /* AddView.swift in Sources */,

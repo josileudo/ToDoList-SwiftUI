@@ -32,7 +32,10 @@ struct ListView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            listViewModel.deleteItem(indexSet: indexSet)
+                            Task {
+                               try await listViewModel.deleteItem(indexSet: indexSet)
+                            }
+                            
                         }
                     } header: {
                         HStack {
@@ -54,7 +57,10 @@ struct ListView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            listViewModel.deleteItem(indexSet: indexSet)
+                            Task {
+                               try await listViewModel.deleteItem(indexSet: indexSet)
+                            }
+                            
                         }
                     } header: {
                         HStack {
